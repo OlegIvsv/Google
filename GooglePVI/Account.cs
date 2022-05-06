@@ -1,4 +1,6 @@
-﻿namespace GooglePVI
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GooglePVI
 {
     public class Account
     {  
@@ -7,6 +9,6 @@
         public string Password { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
-        public byte[] ProfilePicture { get; set; }
+        public byte[]? ProfilePicture { get; set; }
     }
 }

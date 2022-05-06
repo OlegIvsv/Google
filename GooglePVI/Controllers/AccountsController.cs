@@ -1,5 +1,6 @@
 ﻿#nullable disable
 using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GooglePVI;
+using System.IO;
 
 namespace GooglePVI.Controllers
 {
@@ -21,13 +23,13 @@ namespace GooglePVI.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet] // Get all accounts
         public async Task<ActionResult<IEnumerable<Account>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] //Get account by id
         public async Task<ActionResult<Account>> GetAccount(int id)
         {
             var account = await _context.Users.FindAsync(id);
@@ -40,14 +42,20 @@ namespace GooglePVI.Controllers
             return account;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount(int id, Account account)
+        [HttpPut("{id}")] //Update profile picture
+        public async Task<IActionResult> PutAccountPicture(int id, [FromForm(Name = "ProfilePicture")] IFormFile formFile)
         {
-            if (id != account.Id)
+            var pictureBytes = new byte[formFile.Length];
+            using (MemoryStream memoryStream = new MemoryStream())
             {
-                return BadRequest();
+                formFile.CopyTo(memoryStream);
+                pictureBytes = memoryStream.ToArray();
             }
 
+            var account = _context.Users.Find(id);
+            if(account == null)
+                return BadRequest();
+            account.ProfilePicture = pictureBytes;
             _context.Entry(account).State = EntityState.Modified;
 
             try
@@ -66,19 +74,19 @@ namespace GooglePVI.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
-        [HttpPost]
-        public async Task<ActionResult<Account>> PostAccount(Account account)
+        [HttpPost] //Post new account
+        public async Task<ActionResult<NewAccount>> PostAccount([FromForm]NewAccount newAccount)
         {
+            var account = newAccount.ToAccount();
             _context.Users.Add(account);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAccount", new { id = account.Id }, account);
+            return Ok(account);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] //Delete account
         public async Task<IActionResult> DeleteAccount(int id)
         {
             var account = await _context.Users.FindAsync(id);
@@ -91,6 +99,16 @@ namespace GooglePVI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet("authorization/{login}/{password}")] //Authorization
+        public async Task<ActionResult<Account>> GetAccountWithAuthorization(string login, string password)
+        {
+            var account = await _context.Users
+                .Where(a => a.Name == login  && a.Password == password)
+                .FirstOrDefaultAsync();
+
+            return account == null ? Ok(account) : Unauthorized();
         }
 
         private bool AccountExists(int id)

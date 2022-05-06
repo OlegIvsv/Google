@@ -6,6 +6,7 @@ namespace GooglePVI
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Account> Users { get; set; }
+        public DbSet<Article> Articles { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
