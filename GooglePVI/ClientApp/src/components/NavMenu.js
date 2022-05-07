@@ -33,7 +33,6 @@ export class NavMenu extends Component {
               <Logo/>
             </NavbarBrand>
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <SearchLine></SearchLine>
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
                 <NavItem>
@@ -42,12 +41,19 @@ export class NavMenu extends Component {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">
+                  <NavLink tag={Link} className="text-dark" to="/accountsetting">
                     <i class="bi bi-person-square display-6"></i>
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch</NavLink>
+                  <NavLink tag={Link} className="text-dark" to="/fetch-data">
+                    <i class="bi bi-search-heart display-6"></i>
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                <NavLink className="text-dark" href='https://github.com/OlegIvsv/GooglePVI'  target="_blank">
+                  <i class="bi bi-github display-6"></i>
+                </NavLink>
                 </NavItem>
               </ul>
             </Collapse>
@@ -57,3 +63,5 @@ export class NavMenu extends Component {
     );
   }
 }
+
+<i class="bi bi-github"></i>

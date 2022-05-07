@@ -1,0 +1,16 @@
+.profile-img{
+    object-fit:cover;
+    border-style: solid;
+    background-size:cover;
+    background-position:center;
+}
+
+.profile-img-container{
+    justify-content: center;
+    text-align: center;
+    width: 30vw;
+    height: 30vw;
+    border-radius: 50%;
+    background-color: aliceblue;
+    overflow: hidden;
+}

@@ -12,9 +12,9 @@ using System.IO;
 
 namespace GooglePVI.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    [Route("api/[controller]")]
+    public class AccountsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
@@ -40,6 +40,19 @@ namespace GooglePVI.Controllers
             }
 
             return account;
+        }
+
+        [HttpGet("picture/{id}")] //Get profile picture by id
+        public async Task<ActionResult<byte[]>> GetAccountPicture(int id)
+        {
+            var account = await _context.Users.FindAsync(id);
+
+            if (account == null)
+            {
+                return NotFound();
+            }
+
+            return File(account.ProfilePicture, "image/png");
         }
 
         [HttpPut("{id}")] //Update profile picture
@@ -102,13 +115,13 @@ namespace GooglePVI.Controllers
         }
 
         [HttpGet("authorization/{login}/{password}")] //Authorization
-        public async Task<ActionResult<Account>> GetAccountWithAuthorization(string login, string password)
+        public ActionResult<Account> GetAccountWithAuthorization(string login, string password)
         {
-            var account = await _context.Users
+            var account =  _context.Users
                 .Where(a => a.Name == login  && a.Password == password)
-                .FirstOrDefaultAsync();
-
-            return account == null ? Ok(account) : Unauthorized();
+                .FirstOrDefault();
+            
+            return account != null ? account : Unauthorized();
         }
 
         private bool AccountExists(int id)

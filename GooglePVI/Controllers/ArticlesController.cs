@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GooglePVI;
+using GooglePVI.Helpers;
 
 namespace GooglePVI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ArticlesController : ControllerBase
     {
@@ -64,6 +65,15 @@ namespace GooglePVI.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpGet("find/{request}")]
+        public IEnumerable<Article> FindArticlesByRequest(string request)
+        {
+            var parser = new RequestParseHelper();
+            var selector = new SelectItemsHelper();
+            var words = parser.Parse(request,"+");
+            return selector.Select(_context.Articles, words);
         }
 
         private bool ArticleExists(int id)

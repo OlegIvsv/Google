@@ -1,3 +1,4 @@
+import { Container } from "reactstrap";
 
 
 export default function Logo(){
@@ -11,6 +12,8 @@ export default function Logo(){
     var V = <a class="text-info">V</a>;
     var I = <a class="text-warning">I</a>;
     return(
-        <a class="fst-italic fw-bolder">{G}{o1}{o2}{g}{l}{e}{P}{V}{I}</a>
+        <div style={{whiteSpace: 'no-wrap', overflow: 'auto'}}>
+            <div class="fst-italic fw-bolder d-inline-block"><p>{G}{o1}{o2}{g}{l}{e}{P}{V}{I}</p></div>
+        </div>
     );
 }
