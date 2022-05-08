@@ -11,7 +11,7 @@ using GooglePVI.Helpers;
 
 namespace GooglePVI.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ArticlesController : ControllerBase
     {

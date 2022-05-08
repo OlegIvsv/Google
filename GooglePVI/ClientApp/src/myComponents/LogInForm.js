@@ -17,7 +17,8 @@ export default function LogInForm(props) {
             password: jsonRes.password, 
             id: jsonRes.id, 
             name: jsonRes.name, 
-            email: jsonRes.email
+            email: jsonRes.email,
+            isAdmin: jsonRes.isAdmin
         };
         sessionStorage.setItem('currentAccountInfo',JSON.stringify(dataToStore));
         
