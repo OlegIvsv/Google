@@ -2,7 +2,6 @@ import {Modal, Form, Col, Row, Stack, ListGroup, Button} from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import "./AdditionalStyles.css";
-import { CLIEngine } from "eslint";
 
 
 //----------------------------------------
@@ -40,6 +39,16 @@ export default function AccountInfo(props) {
         setRedirect(true);
     }
 
+    const postPicture = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const resp = await fetch(`api/accounts/picture/${accountInfo.id}`,{
+            method: 'POST',
+            body: formData
+        });
+        setShow(false);
+    }
+
     const handleClose = () => setShow(false);
 
     const handleShow = () => setShow(true);
@@ -74,7 +83,8 @@ export default function AccountInfo(props) {
                     <Modal.Title>Update picture ? ? ?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form action={`api/accounts/picture/${accountInfo.id}`} method="post" encType="multipart/form-data">
+                    {/* <Form action={`api/accounts/picture/${accountInfo.id}`} method="post" encType="multipart/form-data"> */}
+                    <Form onSubmit={postPicture}>
                         <Form.Label for="picture" className="form-label">Picture :  </Form.Label>
                         <Form.Control type="file" size="sm" placeholder="choose picture" accept=".png" name="picture"/>
                         <Button variant="primary" className="mt-2" type="submit" size="sm">

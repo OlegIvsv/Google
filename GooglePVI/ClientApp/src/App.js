@@ -10,6 +10,7 @@ import LogInForm from './myComponents/LogInForm';
 import SignUpForm from './myComponents/SignUpForm';
 import SearchPage from './myComponents/SearchPage';
 import AddForm from './myComponents/AddForm.js';
+import Article from './myComponents/Article';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -23,6 +24,7 @@ export default class App extends Component {
         <Route path='/log-in' component={LogInForm} />
         <Route path='/add-data' component={AddForm} />
         <Route path='/add-user' component={SignUpForm} />
+        <Route path='/article/:id' component={Article} />
       </Layout>
     );
   }

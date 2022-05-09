@@ -41,6 +41,19 @@ namespace GooglePVI.Controllers
             return article;
         }
 
+        [HttpGet("picture/{id}")]
+        public async Task<ActionResult<byte[]>> GetArticlePicture(int id)
+        {
+            var article = await _context.Articles.FindAsync(id);
+
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            return File(article.Picture, "image/png");
+        }
+
         [HttpPost]
         public async Task<ActionResult<NewArticle>> PostArticle([FromForm]NewArticle newArticle)
         {

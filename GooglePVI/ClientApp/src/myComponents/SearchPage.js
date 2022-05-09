@@ -27,17 +27,17 @@ export default function SearchPage(props) {
 
         console.log(jsonRes.map(i => i.id));
 
-        setItems(jsonRes);
+        return jsonRes;
     };
 
-    const runSearch = (requestLine) => {
+    const runSearch = async (requestLine) => {
         console.log("Run search with : " + requestLine);
         if(/\s/.test(requestLine)){
             console.log("Empty line");
             setItems([]);
             return;
         }
-        setItems(getItems(requestLine));
+        setItems( await getItems(requestLine));
     };
 
 
