@@ -20,14 +20,14 @@ export default function AddForm(props){
     //     const answer = await response.text();
     // }
 
-    function formData(form){
-        const formData = new FormData(form);
-        const title = formData.get("title");
-        const content = formData.get("content");
-        const picture = formData.get("picture");
+    // function formData(form){
+    //     const formData = new FormData(form);
+    //     const title = formData.get("title");
+    //     const content = formData.get("content");
+    //     const picture = formData.get("picture");
        
-        return { title, content, picture };
-    }
+    //     return { title, content, picture };
+    // }
 
     const [userIsAdmin, setUserIsAdmin] = useState(false);
 
@@ -53,7 +53,7 @@ export default function AddForm(props){
                     <h1>You can enter your data here!</h1>
                 </div>
                 <Stack class="mx-auto">
-                    <Form encType="multipart/form-data" action="api/articles" method="post"> {/*onSubmit={(e) => sendData(e)}>*/}
+                    <Form encType="multipart/form-data" action="api/articles" method="post"> 
                         <Form.Label for="title" className="form-label">Title : </Form.Label>
                         <Form.Control type="text" placeholder="title" name="title"/>
                         

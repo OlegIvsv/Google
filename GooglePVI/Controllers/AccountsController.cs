@@ -55,8 +55,8 @@ namespace GooglePVI.Controllers
             return File(account.ProfilePicture, "image/png");
         }
 
-        [HttpPut("{id}")] //Update profile picture
-        public async Task<IActionResult> PutAccountPicture(int id, [FromForm(Name = "ProfilePicture")] IFormFile formFile)
+        [HttpPost("picture/{id}")] //Update profile picture
+        public async Task<IActionResult> PutAccountPicture(int id, [FromForm(Name = "Picture")] IFormFile formFile)
         {
             var pictureBytes = new byte[formFile.Length];
             using (MemoryStream memoryStream = new MemoryStream())

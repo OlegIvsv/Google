@@ -1,7 +1,8 @@
-import {Figure, Col, Row, Stack, ListGroup, Button} from "react-bootstrap";
+import {Modal, Form, Col, Row, Stack, ListGroup, Button} from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import "./AdditionalStyles.css";
+import { CLIEngine } from "eslint";
 
 
 //----------------------------------------
@@ -9,7 +10,7 @@ import "./AdditionalStyles.css";
 const defaultPictureUrl = 'https://vyshnevyi-partners.com/wp-content/uploads/2016/12/no-avatar.png';
 
 export default function AccountInfo(props) {
-    
+    const [show, setShow] = useState(false);
     const [url, setUrl] = useState(null);
     const [redirect, setRedirect] = useState(false);
 
@@ -39,6 +40,10 @@ export default function AccountInfo(props) {
         setRedirect(true);
     }
 
+    const handleClose = () => setShow(false);
+
+    const handleShow = () => setShow(true);
+
     const accountInfo = checkAccountInfo();
     useEffect(() => { getPicture(accountInfo.id); }, []);
 
@@ -50,9 +55,9 @@ export default function AccountInfo(props) {
                     <p>Your account</p>
                 </div>
                 <Stack class="mx-auto">
-                        <div className=" mx-auto text-center overflow-hidden profile-img-container">
-                            {url && <img thumbnail rounded src={url} className="circle img-fluid"/>}
-                        </div>
+                    <div className="mx-auto text-center overflow-hidden btn profile-img-container" onClick={handleShow}>
+                        {url && <img thumbnail rounded src={url} className="circle img-fluid"/>}
+                    </div>
                     <ListGroup>
                         <ListGroup.Item>User : {accountInfo.name}</ListGroup.Item>
                         <ListGroup.Item>Email : {accountInfo.email}</ListGroup.Item>
@@ -61,6 +66,28 @@ export default function AccountInfo(props) {
                     <Button variant="danger" onClick={() => logOut()}>Log out</Button>
                 </Stack>
             </Col>
+
+            {/*   M O D A L   T O   U P D A T E   P I C T U R E   */}
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Update picture ? ? ?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form action={`api/accounts/picture/${accountInfo.id}`} method="post" encType="multipart/form-data">
+                        <Form.Label for="picture" className="form-label">Picture :  </Form.Label>
+                        <Form.Control type="file" size="sm" placeholder="choose picture" accept=".png" name="picture"/>
+                        <Button variant="primary" className="mt-2" type="submit" size="sm">
+                            Save Changes
+                        </Button>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Row> 
     );
 }

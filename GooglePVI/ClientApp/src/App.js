@@ -7,6 +7,7 @@ import { Counter } from './components/Counter';
 import AccountPage from './myComponents/AccountPage';
 import './custom.css';
 import LogInForm from './myComponents/LogInForm';
+import SignUpForm from './myComponents/SignUpForm';
 import SearchPage from './myComponents/SearchPage';
 import AddForm from './myComponents/AddForm.js';
 
@@ -21,6 +22,7 @@ export default class App extends Component {
         <Route path='/fetch-data' component={SearchPage} />
         <Route path='/log-in' component={LogInForm} />
         <Route path='/add-data' component={AddForm} />
+        <Route path='/add-user' component={SignUpForm} />
       </Layout>
     );
   }

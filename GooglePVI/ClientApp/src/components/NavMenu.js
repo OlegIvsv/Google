@@ -35,29 +35,34 @@ export class NavMenu extends Component {
             <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
-                <NavItem className="mx-5">
+                <NavItem className="mx-4">
                   <NavLink tag={Link} className="text-dark" to="/">
                     <i class="bi bi-gear display-6"></i>
                   </NavLink>
                 </NavItem>
-                <NavItem className="mx-5">
+                <NavItem className="mx-4">
                   <NavLink tag={Link} className="text-dark" to="/accountsetting">
                     <i class="bi bi-person-square display-6"></i>
                   </NavLink>
                 </NavItem>
-                <NavItem className="mx-5">
+                <NavItem className="mx-4">
                   <NavLink tag={Link} className="text-dark" to="/fetch-data">
                     <i class="bi bi-search-heart display-6"></i>
                   </NavLink>
                 </NavItem>
-                <NavItem className="mx-5">
+                <NavItem className="mx-4">
                   <NavLink className="text-dark" href='https://github.com/OlegIvsv/GooglePVI'  target="_blank">
                     <i class="bi bi-github display-6"></i>
                   </NavLink>
                 </NavItem>
-                <NavItem className="mx-5">
+                <NavItem className="mx-4">
                   <NavLink className="text-dark" href='/add-data'>
                     <i class="bi bi-plus-square-dotted display-6"></i>
+                  </NavLink>
+                </NavItem>
+                <NavItem className="mx-4">
+                  <NavLink className="text-dark" href='/add-user'>
+                  <i class="bi bi-person-plus-fill display-6"></i>
                   </NavLink>
                 </NavItem>
               </ul>
@@ -68,3 +73,5 @@ export class NavMenu extends Component {
     );
   }
 }
+
+<i class="bi bi-person-plus-fill"></i>

@@ -8,17 +8,46 @@ export default function SignUpForm(props) {
 
     const [redirectOn, setRedirectOn] = useState(false);
 
-    var currentAccountIsAdmin = false;
-    var currentAccountInfo = sessionStorage.getItem('currnetAccountInfo');
-    if(currentAccountInfo){
-        currentAccountInfo = JSON.parse(currentAccountInfo);
-        currentAccountIsAdmin = currentAccountInfo.isAdmin;
+    // async function sendData(e){
+
+    //     e.preventDefault();
+    //     const userData = formData(e.target);
+    //     console.log(userData);
+    //     const param = {
+    //         method: 'POST',
+    //         headers : {'Content-Type': 'application/json'},
+    //         body: JSON.stringify(userData)
+    //     };
+
+    //     const response = await fetch('api/articles', param);
+    //     const answer = await response.text();
+    // }
+
+    // function formData(form){
+    //     const formData = new FormData(form);
+    //     const title = formData.get("title");
+    //     const content = formData.get("content");
+    //     const picture = formData.get("picture");
+       
+    //     return { title, content, picture };
+    // }
+
+    const checkIfAdmin = () => {
+
+        var currentAccountIsAdmin = false;
+        var currentAccountInfo = sessionStorage.getItem('currentAccountInfo');
+        if(currentAccountInfo){
+            currentAccountInfo = JSON.parse(currentAccountInfo);
+            currentAccountIsAdmin = currentAccountInfo.isAdmin;
+        }
+        return currentAccountIsAdmin;
     }
    
     const goToLogIn = () => {
-        console.log('Redirect to log-in');
         setRedirectOn(true);
     }
+
+    const currentIsAdmin = checkIfAdmin();
 
     return redirectOn ? <Redirect to='/log-in' /> : (
         <Row className="justify-content-center bg-dark text-warning">
@@ -28,16 +57,15 @@ export default function SignUpForm(props) {
                     <p>Register a new account or log in!</p>
                 </div>
                 <Stack class="mx-auto">
-                    <Form>
+                    <Form action="api/accounts" method="post">
                         <Row class="d-flex justify-content-between my-3">
-                            <Col>
+                            <Col xs={8}>
                                 <Form.Label for="name" class="form-label">Full Name : </Form.Label>
                                 <Form.Control type="text" placeholder="firstname + lastname" name="name"/>
                             </Col>
-                            {currentAccountIsAdmin &&
-                            <Col className='d-flex align-items-end justify-content-end me-3'>
-                                <Form.Check label='Admin status' name="isAdmin" class="w-25 form-check-inline" value="true"/>
-                            </Col>}
+                            <Col xs={4} className={'d-flex align-items-end justify-content-end' + (currentIsAdmin ? '' : ' d-none')} >
+                                <Form.Check label='Admin status' name="isAdmin" class="w-25 form-check-inline" value="false"/>
+                            </Col>
                         </Row>
                         
                         <Form.Label for="email" class="form-label">Email : </Form.Label>
