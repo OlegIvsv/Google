@@ -52,7 +52,7 @@ export default function LogInForm(props) {
                         <Form.Control id="email" name='login' placeholder="name as login"/>
 
                         <Form.Label for="password" class="form-label">Password :</Form.Label>
-                        <Form.Control type='password' name='password' placeholder="password"/>
+                        <Form.Control type='password' minLength={4} maxLength={12} name='password' placeholder="password"/>
 
                         <Form.Group class="text-center my-3">
                             <Button type="submit" name="submit" className='shadow' variant="outline-primary">Submit</Button>

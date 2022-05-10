@@ -33,17 +33,18 @@ export default function SignUpForm(props) {
                     <p>Register a new account or log in!</p>
                 </div>
                 <Stack class="mx-auto">
-                    <Form action="api/accounts" method="post">
+                    <Form action="api/accounts" method="post" className='pb-5'>
                         <Form.Label for="name" class="form-label">Full Name : </Form.Label>
-                        <Form.Control type="text" placeholder="firstname + lastname" name="name"/>
+                        <Form.Control type="text" placeholder="firstname + lastname" name="name" pattern='^[A-Za-z]+$'/>
                         
                         <Form.Label for="email" class="form-label">Email : </Form.Label>
-                        <Form.Control id="email" name='email' placeholder="example@gmail.com"/>
+                        <Form.Control id="email" name='email' placeholder="example@gmail.com" pattern='^[a-zA-Z0-9.]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$'/>
 
-                        <Form.Label for="password" class="form-label">Why are you keen on chess?</Form.Label>
-                        <Form.Control type='password' name='password' placeholder="password"/>
+                        <Form.Label for="password" class="form-label">Password : </Form.Label>
+                        <Form.Control type='password' minLength={4} maxLength={12}  name='password' placeholder="password"/>
 
-                        <Form.Check label='Admin status' name="isAdmin" className="form-check-inline mt-3 mx-0" value="false"/>
+                        <Form.Check label='Admin status' name="isAdmin" className={'form-check-inline mt-3 mx-0' + 
+                        (currentIsAdmin ? '' : ' d-none') } value="false"/>
 
                         <Form.Group class="text-center my-3">
                             <Button type="submit" name="submit" className="shadow" variant="outline-primary">Submit</Button>

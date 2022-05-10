@@ -40,9 +40,9 @@ export default function SearchPage(props) {
 
 
     return (
-        <Stack direction="vertical" class="mx-auto">
+        <Container fluid='true' className="mx-auto">
             <SearchLine searchHandler={runSearch}/>
             <ArticleList items={items}/>
-        </Stack>
+        </Container>
     );
 }

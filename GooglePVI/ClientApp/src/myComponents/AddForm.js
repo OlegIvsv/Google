@@ -21,8 +21,11 @@ export default function AddForm(props){
 
     useEffect(() => checkIfAdmin(), []);
 
-    console.log('rend');
-    return !userIsAdmin ? <h1>Admins only are allowed to post something. Sorry.</h1> : (
+    return !userIsAdmin ? 
+    <h2 className='text-primary fst-italic fw-bold mx-auto text-center mt-5'>
+        <i>Admins only are allowed to post something. Sorry.</i>
+    </h2> 
+    : (
         <Row className="justify-content-center bg-light text-primary shadow">
             <Col class="mx-auto text-warning bg-dark" xs={11} md={5}>
                 <div class="text-center lead fst-italic">

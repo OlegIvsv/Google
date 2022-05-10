@@ -14,13 +14,13 @@ export default function CommunityPosts(props) {
     }
    
     return (
-        <Container>
+        <Container className='mb-4 py-1'>
             <Form onSubmit={submited}>
             <Stack fluid direction="horizontal">
                 <Form.Group class="container-lg">
-                    <Form.Control class="w-75" type="text" name="request" placeholder="Search..." />
+                    <Form.Control class="w-75" type="text" name="request" className='shadow' placeholder="Search..." />
                 </Form.Group>
-                <Button variant="primary m-2" type="submit">Search</Button>
+                <Button variant="primary m-2" type="submit" className='shadow'>Search</Button>
             </Stack>
             </Form>
         </Container>
