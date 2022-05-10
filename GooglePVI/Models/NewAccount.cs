@@ -1,4 +1,4 @@
-﻿namespace GooglePVI
+﻿namespace GooglePVI.Models
 {
     public class NewAccount
     {

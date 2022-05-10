@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GooglePVI
+namespace GooglePVI.Models
 {
     public class Account
     {  

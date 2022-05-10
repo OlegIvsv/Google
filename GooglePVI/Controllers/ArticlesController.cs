@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GooglePVI;
 using GooglePVI.Helpers;
+using GooglePVI.Models;
 
 namespace GooglePVI.Controllers
 {
@@ -29,7 +30,7 @@ namespace GooglePVI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Article>> GetArticle(int id)
+        public async Task<ActionResult<ArticleNoPicture>> GetArticle(int id)
         {
             var article = await _context.Articles.FindAsync(id);
 
@@ -38,7 +39,7 @@ namespace GooglePVI.Controllers
                 return NotFound();
             }
 
-            return article;
+            return new ArticleNoPicture(article);
         }
 
         [HttpGet("picture/{id}")]
@@ -81,12 +82,13 @@ namespace GooglePVI.Controllers
         }
 
         [HttpGet("find/{request}")]
-        public IEnumerable<Article> FindArticlesByRequest(string request)
+        public IEnumerable<ArticleNoPicture> FindArticlesByRequest(string request)
         {
             var parser = new RequestParseHelper();
             var selector = new SelectItemsHelper();
             var words = parser.Parse(request,"+");
-            return selector.Select(_context.Articles, words);
+            var articels = selector.Select(_context.Articles, words).Select(a => new ArticleNoPicture(a));
+            return articels.ToArray();
         }
 
         private bool ArticleExists(int id)

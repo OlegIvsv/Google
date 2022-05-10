@@ -28,12 +28,12 @@ export default function ArticlesList(props) {
                         <Card bg='light' border='primary' text='primary' className='shadow'>
                             <Card.Header className='border-1 border-primary'>
                                 <Card.Title onClick={() => clicked(element)} class='text-center fst-italic fw-bolder fs-4'>  
-                                    {element.title.length > 30 ? element.title.slice(30) : element.title}
+                                    {element.title.length > 30 ? ( element.title.slice(30) + '...') : element.title}
                                 </Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text class='fst-italic'>
-                                    {element.content.length > 30 ? element.content.slice(30) : element.content}
+                                    {element.content.length > 30 ? (element.content.slice(30) + '...') : element.content}
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer className='border-1 border-primary text-end'>

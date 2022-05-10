@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GooglePVI;
 using System.IO;
+using GooglePVI.Models;
 
 namespace GooglePVI.Controllers
 {
@@ -23,14 +24,8 @@ namespace GooglePVI.Controllers
             _context = context;
         }
 
-        [HttpGet] // Get all accounts
-        public async Task<ActionResult<IEnumerable<Account>>> GetUsers()
-        {
-            return await _context.Users.ToListAsync();
-        }
-
         [HttpGet("{id}")] //Get account by id
-        public async Task<ActionResult<Account>> GetAccount(int id)
+        public async Task<ActionResult<AccountNoPicture>> GetAccount(int id)
         {
             var account = await _context.Users.FindAsync(id);
           
@@ -39,7 +34,7 @@ namespace GooglePVI.Controllers
                 return NotFound();
             }
 
-            return account;
+            return new AccountNoPicture(account);
         }
 
         [HttpGet("picture/{id}")] //Get profile picture by id
@@ -115,13 +110,13 @@ namespace GooglePVI.Controllers
         }
 
         [HttpGet("authorization/{login}/{password}")] //Authorization
-        public ActionResult<Account> GetAccountWithAuthorization(string login, string password)
+        public ActionResult<AccountNoPicture> GetAccountWithAuthorization(string login, string password)
         {
             var account =  _context.Users
                 .Where(a => a.Name == login  && a.Password == password)
                 .FirstOrDefault();
             
-            return account != null ? account : Unauthorized();
+            return account != null ? new AccountNoPicture(account) : Unauthorized();
         }
 
         private bool AccountExists(int id)
