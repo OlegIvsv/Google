@@ -57,43 +57,48 @@ export default function AccountInfo(props) {
     useEffect(() => { getPicture(accountInfo.id); }, []);
 
     return redirect ? <Redirect to='/accountsetting' /> : (
-        <Row className="justify-content-center bg-dark text-warning">
+        <Row className="justify-content-center bg-light shadow text-primary">
             <Col class="mx-auto text-warning bg-dark" xs={11} md={5}>
                 <div class="text-center lead">
                     <h1>Welcome!</h1>
                     <p>Your account</p>
                 </div>
                 <Stack class="mx-auto">
-                    <div className="mx-auto text-center overflow-hidden btn profile-img-container" onClick={handleShow}>
+                    <div className="shadow mx-auto text-center overflow-hidden btn profile-img-container" onClick={handleShow}>
                         {url && <img thumbnail rounded src={url} className="circle img-fluid"/>}
                     </div>
-                    <ListGroup>
-                        <ListGroup.Item>User : {accountInfo.name}</ListGroup.Item>
-                        <ListGroup.Item>Email : {accountInfo.email}</ListGroup.Item>
-                        <ListGroup.Item>Status : {accountInfo.isAdmin ? 'Admin' : 'Just user' }</ListGroup.Item>
+                    <ListGroup className='mt-3 mb-5 shadow'>
+                        <ListGroup.Item className="bg-light border-1 border-info">
+                            <i className='fw-bold fst-italic text-primary'>Name : </i>{accountInfo.name}
+                        </ListGroup.Item>
+                        <ListGroup.Item className="bg-light border-1 border-info">
+                            <i className='fw-bold fst-italic text-primary'>Email : </i>{accountInfo.email}
+                        </ListGroup.Item>
+                        <ListGroup.Item className="bg-light border-1 border-info">
+                            <i className='fw-bold fst-italic text-primary'>Status : </i>{accountInfo.isAdmin ? 'Admin' : 'Just user' }
+                        </ListGroup.Item>
+                        <Button variant="outline-danger" onClick={() => logOut()}>Log out</Button>
                     </ListGroup>
-                    <Button variant="danger" onClick={() => logOut()}>Log out</Button>
                 </Stack>
             </Col>
 
             {/*   M O D A L   T O   U P D A T E   P I C T U R E   */}
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} className='text-primary'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Update picture ? ? ?</Modal.Title>
+                    <Modal.Title className='fw-bolder fst-italic'>Update picture ? ? ?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* <Form action={`api/accounts/picture/${accountInfo.id}`} method="post" encType="multipart/form-data"> */}
                     <Form onSubmit={postPicture}>
                         <Form.Label for="picture" className="form-label">Picture :  </Form.Label>
                         <Form.Control type="file" size="sm" placeholder="choose picture" accept=".png" name="picture"/>
-                        <Button variant="primary" className="mt-2" type="submit" size="sm">
+                        <Button variant="primary" className='mt-2' type="submit" size="sm">
                             Save Changes
                         </Button>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="outline-primary" onClick={handleClose}>
                         Close
                     </Button>
                 </Modal.Footer>

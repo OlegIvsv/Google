@@ -13,4 +13,9 @@
     border-radius: 50%;
     background-color: aliceblue;
     overflow: hidden;
+    background: #c9e2fb;
+}
+
+.article-photo{
+    width: 30vw;
 }

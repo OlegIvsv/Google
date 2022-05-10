@@ -19,21 +19,18 @@ export default function SearchPage(props) {
             .join("+")
             );
     }
+
     const getItems = async (requestLine) =>{
         console.log("Get items with : " + requestLine);
         const requestLineForServer = formRequestLineForServer(requestLine); 
         const responce = await fetch(`api/articles/find/${requestLineForServer}`);
         const jsonRes = await responce.json();
-
-        console.log(jsonRes.map(i => i.id));
-
         return jsonRes;
     };
 
     const runSearch = async (requestLine) => {
-        console.log("Run search with : " + requestLine);
-        if(/\s/.test(requestLine)){
-            console.log("Empty line");
+        if(requestLine === '' ||  /\s/.test(requestLine)){
+            console.log("HERE");
             setItems([]);
             return;
         }

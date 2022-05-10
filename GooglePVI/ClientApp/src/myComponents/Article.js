@@ -1,4 +1,4 @@
-import {Modal, Form, Col, Row, Stack, ListGroup, Button} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import "./AdditionalStyles.css";
@@ -39,14 +39,20 @@ export default function Article(props) {
     }, []);
 
     return (
-        <Row className="justify-content-center bg-dark text-warning">
-            <Col class="mx-auto text-warning bg-dark" xs={11} md={5}>
-                <p>{article ? article.title : <h2>. . .</h2>}</p>
-                <p>{article ? article.content : <h2>. . .</h2>}</p>
-                <div className="mx-auto text-center overflow-hidden btn">
-                    {url && <img thumbnail rounded src={url} className="circle img-fluid"/>}
-                </div>
-            </Col>
-        </Row>
+        <Container className="justify-content-center bg-light mx-auto text-primary mb-5 rounded-3 shadow">
+            <h2 className="ms-5 pt-4 mb-4 fst-italic fw-normal">{article ? article.title : '. . .'}</h2>
+            <hr/>
+            <p className="py-2 fst-italic">
+                {article ? article.content : '. . .'}
+            </p>
+            <hr/>
+            <div className="mx-auto text-center article-photo">
+                {url && <img thumbnail rounded src={url} className="circle img-fluid rounded-3 shadow"/>}
+            </div>
+            <hr/>
+            <div className="text-center text-secondary py-2">
+                <small className='fst-italic fw-bold'>{article ? article.creationTime : '. . .'}</small>
+            </div>
+        </Container>
     );
 }

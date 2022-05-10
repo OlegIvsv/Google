@@ -39,9 +39,9 @@ export default function LogInForm(props) {
     };
 
     return redirectOn ? <Redirect to='/accountsetting' /> : ( 
-        <Row className="justify-content-center bg-dark text-warning">
-            <Col class="mx-auto text-warning bg-dark" xs={11} md={5}>
-                <div class="text-center lead">
+        <Row className="justify-content-center bg-light rounded-3 text-primary py-5 mt-2 shadow">
+            <Col className="mx-auto p-5" xs={11} md={5}>
+                <div className="text-center lead">
                     <h1>Welcome!</h1>
                     <p>Register a new account or log in!</p>
                 </div>
@@ -51,11 +51,11 @@ export default function LogInForm(props) {
                         <Form.Label for="login" class="form-label">Login : </Form.Label>
                         <Form.Control id="email" name='login' placeholder="name as login"/>
 
-                        <Form.Label for="password" class="form-label">Why are you keen on chess?</Form.Label>
+                        <Form.Label for="password" class="form-label">Password :</Form.Label>
                         <Form.Control type='password' name='password' placeholder="password"/>
 
                         <Form.Group class="text-center my-3">
-                            <Button type="submit" name="submit" variant="outline-warning">Submit</Button>
+                            <Button type="submit" name="submit" className='shadow' variant="outline-primary">Submit</Button>
                         </Form.Group>
                     </Form>
                 </Stack>

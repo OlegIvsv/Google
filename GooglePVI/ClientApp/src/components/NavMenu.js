@@ -36,11 +36,6 @@ export class NavMenu extends Component {
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
                 <NavItem className="mx-4">
-                  <NavLink tag={Link} className="text-dark" to="/">
-                    <i class="bi bi-gear display-6"></i>
-                  </NavLink>
-                </NavItem>
-                <NavItem className="mx-4">
                   <NavLink tag={Link} className="text-dark" to="/accountsetting">
                     <i class="bi bi-person-square display-6"></i>
                   </NavLink>
