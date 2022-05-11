@@ -23,6 +23,24 @@ export default function SignUpForm(props) {
         setRedirectOn(true);
     }
 
+    const sendData = async (e) => {
+        e.preventDefault();
+        const formData = e.target;
+        const data = 
+        {
+            isAdmin: formData['isAdmin'].checked ? 'true' : 'false',
+            email: formData['email'].value,
+            name: formData['name'].value,
+            password: formData['password'].value,
+        }
+        const resp = await fetch('api/accounts', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {'Content-Type':'application/json'}
+        });
+        console.log(resp.status);
+        goToLogIn();
+    }
     const currentIsAdmin = checkIfAdmin();
 
     return redirectOn ? <Redirect to='/log-in' /> : (
@@ -33,18 +51,18 @@ export default function SignUpForm(props) {
                     <p>Register a new account or log in!</p>
                 </div>
                 <Stack class="mx-auto">
-                    <Form action="api/accounts" method="post" className='pb-5'>
+                    <Form onSubmit={sendData} className='pb-5'>
                         <Form.Label for="name" class="form-label">Full Name : </Form.Label>
                         <Form.Control type="text" placeholder="firstname + lastname" name="name" pattern='^[A-Za-z]+$'/>
                         
                         <Form.Label for="email" class="form-label">Email : </Form.Label>
-                        <Form.Control id="email" name='email' placeholder="example@gmail.com" pattern='^[a-zA-Z0-9.]+@[a-zA-Z]+\\.[a-zA-Z]{2,}$'/>
+                        <Form.Control id="email" name='email' placeholder="example@gmail.com" pattern='^[a-zA-Z0-9.]+@[a-zA-Z]+\.[a-zA-Z]{2,}$'/>
 
                         <Form.Label for="password" class="form-label">Password : </Form.Label>
                         <Form.Control type='password' minLength={4} maxLength={12}  name='password' placeholder="password"/>
 
                         <Form.Check label='Admin status' name="isAdmin" className={'form-check-inline mt-3 mx-0' + 
-                        (currentIsAdmin ? '' : ' d-none') } value="false"/>
+                        (currentIsAdmin ? '' : ' d-none')}/>
 
                         <Form.Group class="text-center my-3">
                             <Button type="submit" name="submit" className="shadow" variant="outline-primary">Submit</Button>

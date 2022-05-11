@@ -21,15 +21,14 @@ export default function AccountInfo(props) {
     }
 
     async function getPicture(accountId){
-
-        if(accountId <= 0)
-            setUrl(defaultPictureUrl);
+        
         const prom = await fetch(`api/accounts/picture/${accountId}`);
-        const blobRes = await prom.blob();
-        if(blobRes.type === ""){
-            setUrl("");
+
+        if(prom.status === 404){
+            setUrl(defaultPictureUrl);
             return;
         }
+        const blobRes = await prom.blob();
         const url = await URL.createObjectURL(blobRes);
         setUrl(url);
     }
@@ -64,8 +63,8 @@ export default function AccountInfo(props) {
                     <p>Your account</p>
                 </div>
                 <Stack class="mx-auto">
-                    <div className="shadow mx-auto text-center overflow-hidden btn profile-img-container" onClick={handleShow}>
-                        {url && <img thumbnail rounded src={url} className="circle img-fluid"/>}
+                    <div className="shadow d-flex p-0 mx-auto text-center overflow-hidden btn profile-img-container" onClick={handleShow}>
+                        {url && <img thumbnail rounded src={url} className="circle img-fluid profile-img profile-img"/>}
                     </div>
                     <ListGroup className='mt-3 mb-5 shadow'>
                         <ListGroup.Item className="bg-light border-1 border-info">

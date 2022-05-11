@@ -47,7 +47,7 @@ namespace GooglePVI.Controllers
                 return NotFound();
             }
 
-            return File(account.ProfilePicture, "image/png");
+            return account.ProfilePicture == null ? NotFound() : File(account.ProfilePicture, "image/png");
         }
 
         [HttpPost("picture/{id}")] //Update profile picture
@@ -86,12 +86,12 @@ namespace GooglePVI.Controllers
         }
 
         [HttpPost] //Post new account
-        public async Task<ActionResult<NewAccount>> PostAccount([FromForm]NewAccount newAccount)
+        public async Task<ActionResult<NewAccount>> PostAccount(NewAccount newAccount)
         {
             var account = newAccount.ToAccount();
             _context.Users.Add(account);
             await _context.SaveChangesAsync();
-            return Ok(account);
+            return Ok();
         }
 
         [HttpDelete("{id}")] //Delete account

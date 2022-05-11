@@ -14,15 +14,12 @@ export default function Article(props) {
     const articleId = useParams().id;
 
     const getPicture = async (id) => {
-        console.log("ID - " + id);
         const prom = await fetch(`api/articles/picture/${id}`);
         if(prom.status === 400){
-            console.log('4  0  0 --- id = ' + articleId);
             setUrl(null);
             return;
         }
         const blobRes = await prom.blob();
-        console.log(blobRes);
         const url = await URL.createObjectURL(blobRes);
         setUrl(url);
     };
