@@ -19,12 +19,13 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path='/' component={SearchPage} />
-        <Route path='/accountsetting' component={AccountPage} />
-        <Route path='/fetch-data' component={SearchPage} />
-        <Route path='/log-in' component={LogInForm} />
+        <Route path='/account-setting' component={AccountPage} />
+          <Route path='/account-setting/sign-up' component={SignUpForm} />
+          <Route path='/account-setting/log-in' component={LogInForm} />
         <Route path='/add-data' component={AddForm} />
         <Route path='/add-user' component={SignUpForm} />
-        <Route path='/article/:id' component={Article} />
+        <Route path='/articles' component={SearchPage} />
+          <Route path='/articles/:id' component={Article} />
       </Layout>
     );
   }

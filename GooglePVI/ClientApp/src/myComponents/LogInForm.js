@@ -7,7 +7,7 @@ import { Redirect } from "react-router-dom";
 
 export default function LogInForm(props) {
 
-    const [redirectOn, setRedirectOn] = useState(false);
+    const [redirect, setRedirect] = useState(null);
 
     const authorizeAccount = async (login, password) =>{
         const responce = await fetch(`api/accounts/authorization/${login}/${password}`);
@@ -33,12 +33,15 @@ export default function LogInForm(props) {
        
 
         if(await authorizeAccount(login, password))
-            setRedirectOn(true);
+            setRedirect(<Redirect to='/account-setting' />);
         else
             alert('Wrong data!');
     };
 
-    return redirectOn ? <Redirect to='/accountsetting' /> : ( 
+    const goToSignUp = () => {
+        setRedirect(<Redirect to='/account-setting/sign-up' />);
+    }
+    return redirect ? redirect : ( 
         <Row className="justify-content-center bg-light rounded-3 text-primary py-5 mt-2 shadow">
             <Col className="mx-auto p-5" xs={11} md={5}>
                 <div className="text-center lead">
@@ -56,6 +59,9 @@ export default function LogInForm(props) {
 
                         <Form.Group class="text-center my-3">
                             <Button type="submit" name="submit" className='shadow' variant="outline-primary">Submit</Button>
+                        </Form.Group>
+                        <Form.Group class="text-center my-3">
+                            <Button size='sm' className="shadow" onClick={() => goToSignUp()} type='button' name="logIn" variant="outline-primary">SignUp</Button>
                         </Form.Group>
                     </Form>
                 </Stack>

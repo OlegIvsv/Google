@@ -10,7 +10,7 @@ export default function ArticlesList(props) {
 
     const clicked = (element) => {
         setRedirect(
-            <Redirect to={`/article/${element.id}`}></Redirect>
+            <Redirect to={`/articles/${element.id}`}></Redirect>
         );
     }
 

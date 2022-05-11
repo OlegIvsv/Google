@@ -36,17 +36,17 @@ export class NavMenu extends Component {
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
               <ul className="navbar-nav flex-grow">
                 <NavItem className="mx-4">
-                  <NavLink tag={Link} className="text-dark" to="/accountsetting">
+                  <NavLink tag={Link} className="text-dark" to="/account-setting/sign-up">
                     <i class="bi bi-person-square display-6"></i>
                   </NavLink>
                 </NavItem>
                 <NavItem className="mx-4">
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">
+                  <NavLink tag={Link} className="text-dark" to="/articles">
                     <i class="bi bi-search-heart display-6"></i>
                   </NavLink>
                 </NavItem>
                 <NavItem className="mx-4">
-                  <NavLink className="text-dark" href='https://github.com/OlegIvsv/GooglePVI'  target="_blank">
+                  <NavLink className="text-dark" href='https://github.com/OlegIvsv/GooglePVI' target="_blank">
                     <i class="bi bi-github display-6"></i>
                   </NavLink>
                 </NavItem>

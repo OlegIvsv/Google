@@ -55,7 +55,7 @@ export default function AccountInfo(props) {
     const accountInfo = checkAccountInfo();
     useEffect(() => { getPicture(accountInfo.id); }, []);
 
-    return redirect ? <Redirect to='/accountsetting' /> : (
+    return redirect ? <Redirect to='/account-setting' /> : (
         <Row className="justify-content-center bg-light shadow text-primary">
             <Col class="mx-auto text-warning bg-dark" xs={11} md={5}>
                 <div class="text-center lead">

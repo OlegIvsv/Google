@@ -2,19 +2,17 @@ import { Row, Col, Container, Form, FormGroup, Button, Stack} from "react-bootst
 import { useEffect, useState } from "react";
 import AccountInfo from "./AccountInfo";
 import SignUpForm from "./SignUpForm";
+import { Redirect } from "react-router-dom";
 
 
 //----------------------------------------
 
 export default function AccountPage(props) {
 
-    var element = null;
     const currentAccountInfo = sessionStorage.getItem('currentAccountInfo');
-    console.log(currentAccountInfo);
+ 
     if(currentAccountInfo)
-        element = <AccountInfo/>;
+        return <AccountInfo/>;
     else
-        element = <SignUpForm/>;
-   
-    return element;
+        return <Redirect to='/account-setting/sign-up'/>;
 }

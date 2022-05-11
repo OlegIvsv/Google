@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom';
 
 export default function SignUpForm(props) {
 
-    const [redirectOn, setRedirectOn] = useState(false);
+    const [redirect, setRedirect] = useState(null);
 
     const checkIfAdmin = () => {
 
@@ -19,10 +19,13 @@ export default function SignUpForm(props) {
         return currentAccountIsAdmin;
     }
    
-    const goToLogIn = () => {
-        setRedirectOn(true);
+    const goToAccountSetting = () => {
+        setRedirect(<Redirect to='/account-settings' />);
     }
 
+    const goToLogIn = () => {
+        setRedirect(<Redirect to='/account-setting/log-in' />);
+    }
     const sendData = async (e) => {
         e.preventDefault();
         const formData = e.target;
@@ -42,11 +45,11 @@ export default function SignUpForm(props) {
             headers: {'Content-Type':'application/json'}
         });
         console.log(resp.status);
-        goToLogIn();
+        goToAccountSetting();
     }
     const currentIsAdmin = checkIfAdmin();
 
-    return redirectOn ? <Redirect to='/log-in' /> : (
+    return redirect ? redirect : (
         <Row className="justify-content-center bg-light shadow text-primary">
             <Col class="mx-auto text-warning bg-dark" xs={11} md={5}>
                 <div class="text-center lead">
