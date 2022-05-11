@@ -1,17 +1,13 @@
 import {Card, Row, Col, Container} from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 //----------------------------------------
 
 export default function ArticlesList(props) {
 
-    const [redirect, setRedirect] = useState(null);
-
     const clicked = (element) => {
-        setRedirect(
-            <Redirect to={`/articles/${element.id}`}></Redirect>
-        );
+        props.selectOne(element.id);
     }
 
     const buildElements = () => {
@@ -27,9 +23,9 @@ export default function ArticlesList(props) {
                     <Col>
                         <Card bg='light' border='primary' text='primary' className='shadow'>
                             <Card.Header className='border-1 border-primary'>
-                                <Card.Title onClick={() => clicked(element)} class='text-center fst-italic fw-bolder fs-4'>  
-                                    {element.title.length > 30 ? ( element.title.slice(30) + '...') : element.title}
-                                </Card.Title>
+                                <Card.Title  class='text-center fst-italic fw-bolder fs-4'>  
+                                    <NavLink to={`articles/${element.id}`}>{element.title.length > 30 ? ( element.title.slice(30) + '...') : element.title}</NavLink>
+                                </Card.Title> 
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text class='fst-italic'>
@@ -46,7 +42,5 @@ export default function ArticlesList(props) {
         );
     }
 
-    if(redirect)
-        return redirect;
-    return  <Container fluid='lg'>{buildElements()} </Container>;
+    return <Container fluid='lg'>{buildElements()} </Container>;
 }

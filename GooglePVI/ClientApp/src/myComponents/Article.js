@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
 import "./AdditionalStyles.css";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 //----------------------------------------

@@ -24,8 +24,8 @@ export default class App extends Component {
           <Route path='/account-setting/log-in' component={LogInForm} />
         <Route path='/add-data' component={AddForm} />
         <Route path='/add-user' component={SignUpForm} />
-        <Route path='/articles' component={SearchPage} />
-          <Route path='/articles/:id' component={Article} />
+        <Route path='/search' component={SearchPage} />
+        <Route path='/articles/:id' component={Article} />
       </Layout>
     );
   }

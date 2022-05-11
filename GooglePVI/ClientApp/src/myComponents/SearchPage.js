@@ -1,6 +1,7 @@
 import { Row, Col, Container, Form, FormGroup, Button, Stack} from "react-bootstrap";
 import { useEffect, useState } from "react";
-import {Redirect} from 'react-router-dom';
+import {Route} from 'react-router'; 
+import {Redirect} from 'react-router';
 import SearchLine from './SearchLine';
 import ArticleList from './ArticleList';
 
@@ -9,6 +10,7 @@ import ArticleList from './ArticleList';
 export default function SearchPage(props) {
     
     const [items, setItems] = useState([]);
+    const [redirect, setRedirect] = useState(null);
 
     const formRequestLineForServer = (requestLine) =>{
         console.log("Form line with : " + requestLine);
@@ -18,7 +20,7 @@ export default function SearchPage(props) {
             .filter(w => w !== "")
             .join("+")
             );
-    }
+    };
 
     const getItems = async (requestLine) =>{
         console.log("Get items with : " + requestLine);
@@ -37,12 +39,18 @@ export default function SearchPage(props) {
         setItems( await getItems(requestLine));
     };
 
+    const selectOne = (id) => {
+        setRedirect(
+            <Redirect to={`/articles/${id}`}></Redirect>
+        );
+    };
 
+    useEffect(() => {console.log('rendered sp');})
 
-    return (
+    return redirect ? redirect : (
         <Container fluid='true' className="mx-auto">
             <SearchLine searchHandler={runSearch}/>
-            <ArticleList items={items}/>
+            <ArticleList items={items} selectOne={selectOne}/>
         </Container>
     );
 }
