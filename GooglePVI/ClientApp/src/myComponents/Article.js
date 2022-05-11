@@ -15,7 +15,7 @@ export default function Article(props) {
 
     const getPicture = async (id) => {
         const prom = await fetch(`api/articles/picture/${id}`);
-        if(prom.status === 400){
+        if(prom.status === 404){
             setUrl(null);
             return;
         }
@@ -28,6 +28,7 @@ export default function Article(props) {
         const resp = await fetch(`api/articles/${id}`);
         const data = await resp.json();
         setArticle(data);
+        console.log(article);
     };
 
     useEffect(() => {
@@ -39,14 +40,20 @@ export default function Article(props) {
         <Container className="justify-content-center bg-light mx-auto text-primary mb-5 rounded-3 shadow">
             <h2 className="ms-5 pt-4 mb-4 fst-italic fw-normal">{article ? article.title : '. . .'}</h2>
             <hr/>
-            <p className="py-2 fst-italic">
-                {article ? article.content : '. . .'}
-            </p>
-            <hr/>
-            <div className="mx-auto text-center article-photo">
-                {url && <img thumbnail rounded src={url} className="circle img-fluid rounded-3 shadow"/>}
-            </div>
-            <hr/>
+            {article && article.content !== 'null' && 
+            <div>
+                <p className="py-2 fst-italic">
+                    {article.content}
+                </p>
+                <hr/>
+            </div>}
+            { url &&
+            <div>
+                <div className="mx-auto text-center article-photo">
+                    {url && <img thumbnail rounded src={url} className="circle img-fluid rounded-3 shadow"/>}
+                </div>
+                <hr/>
+            </div>}
             <div className="text-center text-secondary py-2">
                 <small className='fst-italic fw-bold'>{article ? article.creationTime : '. . .'}</small>
             </div>

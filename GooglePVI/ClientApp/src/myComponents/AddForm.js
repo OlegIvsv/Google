@@ -19,6 +19,29 @@ export default function AddForm(props){
         return JSON.parse(currentAccountInfo);
     }
 
+    const sentData = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        const picture = formData.get('picture');
+        const content = formData.get('content');
+        if(content === '' && picture.size === 0){
+            alert('The article is empty. It\'s not allowed!' );
+            return;
+        }
+        if(content === '')
+            formData.set('content', null);
+        if(picture.size === 0)
+            formData.set('picture', null);
+
+        console.log('content : ' + content + "  picture length : " + picture.length);
+        const resp = await fetch('api/articles', {
+            method: 'POST',
+            body: formData,
+        });
+        console.log(resp.body.getReader().read());
+    }
+
     useEffect(() => checkIfAdmin(), []);
 
     return !userIsAdmin ? 
@@ -32,9 +55,9 @@ export default function AddForm(props){
                     <h1>You can enter your data here!</h1>
                 </div>
                 <Stack class="mx-auto">
-                    <Form encType="multipart/form-data" action="api/articles" method="post"> 
+                   <Form onSubmit={(e) => sentData(e)} encType="multipart/form-data">
                         <Form.Label for="title" className="form-label">Title : </Form.Label>
-                        <Form.Control type="text" placeholder="title" name="title"/>
+                        <Form.Control type="text" placeholder="title" name="title" pattern="\s*[A-Za-z0-9]+(?:\s+[A-Za-z0-9]+)*\s*"/>
                         
                         <Form.Label for="picture" className="form-label">Picture :  </Form.Label>
                         <Form.Control type="file" size="sm" placeholder="choose picture" accept=".png" name="picture"/>

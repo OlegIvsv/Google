@@ -1,19 +1,25 @@
 ﻿using System;
 using System.IO;
 using GooglePVI.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace GooglePVI.Models
 {
     public class NewArticle
     {
         public string Title { get; set; }
-        public string Content { get; set; }
-        public IFormFile Picture { get; set; }
+        [MinLength(0)]
+        public string? Content { get; set; }
+        public IFormFile? Picture { get; set; }
 
         public Article ToArticle()
         {
-            var pictureHelper = new PictureHelper();
-            var pictureBytes = pictureHelper.ToByteArray(Picture);
+            byte[] pictureBytes = null;
+            if (this.Picture != null)
+            {
+                var pictureHelper = new PictureHelper();
+                pictureBytes = pictureHelper.ToByteArray(Picture);
+            }
             return new Article
             {
                 Title = Title,

@@ -47,7 +47,7 @@ namespace GooglePVI.Controllers
         {
             var article = await _context.Articles.FindAsync(id);
 
-            if (article == null)
+            if (article.Picture == null)
             {
                 return NotFound();
             }
@@ -63,7 +63,7 @@ namespace GooglePVI.Controllers
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetArticle", new { id = article.Id }, article);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

@@ -4,6 +4,8 @@
     {
         public byte[] ToByteArray(IFormFile picture)
         {
+            if (picture == null)
+                 throw new ArgumentNullException("Null-picture!!!");
             var pictureBytes = new byte[picture.Length];
             using (MemoryStream memoryStream = new MemoryStream())
             {
