@@ -2,6 +2,9 @@
 {
     public class ArticleNoPicture
     {
+        public ArticleNoPicture()
+        {
+        }
         public ArticleNoPicture(Article article)
         {
             this.Id = article.Id;

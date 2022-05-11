@@ -31,8 +31,7 @@ export default function SearchPage(props) {
     };
 
     const runSearch = async (requestLine) => {
-        if(requestLine === '' ||  /\s/.test(requestLine)){
-            console.log("HERE");
+        if(/^\s+$/.test(requestLine)){
             setItems([]);
             return;
         }

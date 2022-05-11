@@ -20,7 +20,7 @@ export default function SignUpForm(props) {
     }
    
     const goToAccountSetting = () => {
-        setRedirect(<Redirect to='/account-settings' />);
+        setRedirect(<Redirect to='/account-setting' />);
     }
 
     const goToLogIn = () => {

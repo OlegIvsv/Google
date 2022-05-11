@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 //----------------------------------------
 
-export default function CommunityPosts(props) {
+export default function SearchLine(props) {
 
     const submited = (e) => {
         e.preventDefault();

@@ -87,8 +87,8 @@ namespace GooglePVI.Controllers
             var parser = new RequestParseHelper();
             var selector = new SelectItemsHelper();
             var words = parser.Parse(request,"+");
-            var articels = selector.Select(_context.Articles, words).Select(a => new ArticleNoPicture(a));
-            return articels.ToArray();
+            var articels = selector.Select(_context.Articles, words);
+            return articels;
         }
 
         private bool ArticleExists(int id)

@@ -6,10 +6,6 @@ import { NavLink } from "react-router-dom";
 
 export default function ArticlesList(props) {
 
-    const clicked = (element) => {
-        props.selectOne(element.id);
-    }
-
     const buildElements = () => {
         if(props.items && props.items.length === 0)
             return (
@@ -19,17 +15,23 @@ export default function ArticlesList(props) {
             );
         return(
             <Row xs={1} md={2} className="shadow py-4 px-5 rounded-3 g-3">
-                {props.items.map(element => 
-                    <Col>
+                {props.items.map(element => {
+
+                    const content = element.content === 'null' ? '(Picture only)' :  (element.content.length > 70 ? (element.content.substr(0,70) + '...') : element.content);
+                    const title = element.title.length > 30 ? ( element.title.substr(0,30) + '...') : element.title;
+                    
+                   return (<Col>
                         <Card bg='light' border='primary' text='primary' className='shadow'>
                             <Card.Header className='border-1 border-primary'>
                                 <Card.Title  class='text-center fst-italic fw-bolder fs-4'>  
-                                    <NavLink to={`articles/${element.id}`}>{element.title.length > 30 ? ( element.title.slice(30) + '...') : element.title}</NavLink>
+                                    <NavLink to={`articles/${element.id}`}>
+                                        {title}
+                                    </NavLink>
                                 </Card.Title> 
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text class='fst-italic'>
-                                    {element.content.length > 30 ? (element.content.slice(30) + '...') : element.content}
+                                    {content}
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer className='border-1 border-primary text-end'>
@@ -37,6 +39,8 @@ export default function ArticlesList(props) {
                             </Card.Footer>
                         </Card>
                     </Col>
+                   )
+                }
                 )}
             </Row>
         );
