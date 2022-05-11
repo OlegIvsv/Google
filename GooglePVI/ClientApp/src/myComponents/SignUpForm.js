@@ -28,11 +28,14 @@ export default function SignUpForm(props) {
         const formData = e.target;
         const data = 
         {
-            isAdmin: formData['isAdmin'].checked ? 'true' : 'false',
+            isAdmin: formData['isAdmin'].checked,
             email: formData['email'].value,
             name: formData['name'].value,
             password: formData['password'].value,
-        }
+        };
+
+        console.log(data);
+        
         const resp = await fetch('api/accounts', {
             method: 'POST',
             body: JSON.stringify(data),
