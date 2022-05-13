@@ -11,13 +11,15 @@ import SignUpForm from './myComponents/SignUpForm';
 import SearchPage from './myComponents/SearchPage';
 import AddForm from './myComponents/AddForm.js';
 import Article from './myComponents/Article';
+import { Switch } from 'react-router-dom';
 
 export default class App extends Component {
   static displayName = App.name;
 
   render () {
     return (
-      <Layout>
+        <Layout>
+            <Switch>
         <Route exact path='/' component={SearchPage} />
         <Route path='/account-setting' component={AccountPage} />
           <Route path='/account-setting/sign-up' component={SignUpForm} />
@@ -25,7 +27,8 @@ export default class App extends Component {
         <Route path='/add-data' component={AddForm} />
         <Route path='/add-user' component={SignUpForm} />
         <Route path='/search' component={SearchPage} />
-        <Route path='/articles/:id' component={Article} />
+                <Route path='/articles/:id' component={Article} />
+            </Switch>
       </Layout>
     );
   }
