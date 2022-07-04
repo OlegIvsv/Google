@@ -110,11 +110,11 @@ namespace GooglePVI.Controllers
         }
 
         [HttpGet("authorization/{login}/{password}")] //Authorization
-        public ActionResult<AccountNoPicture> GetAccountWithAuthorization(string login, string password)
+        public async Task<ActionResult<AccountNoPicture>> GetAccountWithAuthorization(string login, string password)
         {
-            var account =  _context.Users
+            var account =  await _context.Users
                 .Where(a => a.Name == login  && a.Password == password)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
             
             return account != null ? new AccountNoPicture(account) : Unauthorized();
         }

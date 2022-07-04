@@ -82,12 +82,12 @@ namespace GooglePVI.Controllers
         }
 
         [HttpGet("find/{request}")]
-        public IEnumerable<ArticleNoPicture> FindArticlesByRequest(string request)
+        public async Task<IEnumerable<ArticleNoPicture>> FindArticlesByRequest(string request)
         {
             var parser = new RequestParseHelper();
             var selector = new SelectItemsHelper();
-            var words = parser.Parse(request,"+");
-            var articels = selector.Select(_context.Articles, words);
+            var words = parser.Parse(request, "+");
+            var articels = await Task.Run(() => selector.Select(_context.Articles, words));
             return articels;
         }
 
